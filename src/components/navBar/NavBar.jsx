@@ -49,7 +49,7 @@ export const NavBar = () => {
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)', // Safari
         boxShadow: 0,
-
+        
       }}
     >
       <Container maxWidth="xl">

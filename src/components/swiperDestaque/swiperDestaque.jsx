@@ -24,22 +24,22 @@ export const SwiperDestaque = ({ destaques }) => {
       {destaques.map((destaque, idx) => (
         <SwiperSlide key={idx}>
           <div style={{ width: "100%", aspectRatio: "16 / 9" }}>
-            <Box sx={{ position: "absolute", top: { md: "40%", xl: "25%" }, left: "5%" }}>
-              <Box sx={{ width: "60%" }}>
+            <Box sx={{ position: "absolute", top: { md: "25%", lg:"36%",xl: "36%" }, left: "5%" }}>
+              <Box sx={{ width: {xs:"85%",md:"68%",lg:"70%",xl:"70%"} }}>
                 {destaque.instrutores.map((instrutor, index) => (
                   <Box sx={{
-                    bgcolor: "#15ECEC2B", px: 1, width: "20%", textAlign: "center", borderRadius: "14px", mb: 2
+                    bgcolor: "#15ECEC2B", px:2,py:1, width: "30%", textAlign: "center", borderRadius: "14px", mb: 2
                   }}>
-                    <Typography key={index} sx={{ fontSize: 24, color: "#fff", fontWeight: "bolder" }}>{instrutor.instrutor.nome}</Typography>
+                    <Typography key={index} sx={{ fontSize: {md:15,xl:24}, color: "#fff", fontWeight: "bolder" }}>{instrutor.instrutor.nome}</Typography>
                   </Box>
                 ))}
                 <Typography
                   variant="titleAlt"
                   component="div"
                   sx={{
-                    fontSize: { xl: 110, md: 50 },
+                    fontSize: { xl: 110, md: 70,lg:80},
                     color: "#fff",
-                    lineHeight: { md: "50px", xl: "100px" },
+                    lineHeight: { md: "70px", xl: "100px",lg:"80px"},
                     fontWeight: "bolder",
                     display: "-webkit-box",
                     WebkitBoxOrient: "vertical",
@@ -54,16 +54,16 @@ export const SwiperDestaque = ({ destaques }) => {
                 <Box sx={{
                   bgcolor: destaque.tipo ==="AULA"? "#02495DA6" : destaque.tipo==="PALESTRA"? "#F3A0052B": destaque.tipo==="PODCAST" ? "#025D13A6":"#000", px: 1, textAlign: "center", borderRadius: "20px", width: "8%", mt: 2
                 }}>
-                  <Typography sx={{ fontSize: 16, color: "#fff", p: 1, fontWeight: "bolder" }}>{destaque.tipo}</Typography>
+                  <Typography sx={{ fontSize: {xl:16,md:12}, color: "#fff", p: 1, fontWeight: "bolder" }}>{destaque.tipo}</Typography>
                 </Box>
                 <Box sx={{
                   bgcolor: "#15ECEC2B", px: 1, textAlign: "center", borderRadius: "20px", width: "8%a", mt: 2
                 }}>
-                  <Typography sx={{ fontSize: 16, color: "#fff", p: 1, fontWeight: "bolder" }}>{destaque.subcategoria.nome}</Typography>
+                  <Typography sx={{ fontSize: {xl:16,md:12}, color: "#fff", p: 1, fontWeight: "bolder" }}>{destaque.subcategoria.nome}</Typography>
                 </Box>
               </Box>
               <Box sx={{display:"flex",alignItems:"center",gap:2,mt:3}}>
-       <Button sx={{ bgcolor: "#FFA40A", width: "320px", height: "65px", color: "#000", fontSize: 22, fontWeight: "bolder", gap: 1, borderRadius: "10px" }}><img src="/src/assets/play.svg" />Assistir</Button>
+       <Button sx={{ bgcolor: "#FFA40A", width:"20%",height:"auto",color: "#000", fontSize: 22, fontWeight: "bolder", gap: 1, borderRadius: "10px" }}><img src="/src/assets/play.svg" />Assistir</Button>
               <IconButton sx={{bgcolor:"#333",borderRadius:"10px",width:"65px",height:"65px"}}>
                 <img src="src/assets/save.svg"/>
               </IconButton>

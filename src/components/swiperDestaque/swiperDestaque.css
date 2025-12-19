@@ -1,0 +1,17 @@
+/* Sobe a paginação (bullets) */
+.swiper-pagination {
+  bottom: 40px !important; /* aumenta/diminui pra subir/descer */
+}
+
+/* Tamanho do bullet */
+.swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  opacity: 0.6;
+}
+
+/* Bullet ativo */
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  transform: scale(1.2);
+}

@@ -34,7 +34,7 @@ useEffect(()=>{
   return (
     <>
       <NavBar />
-      <Box sx={{ mt:{xs:"-12%",xl:"-8%",md:"-8%"} }}> {/* 64px é a altura comum do AppBar no desktop */}
+      <Box> {/* 64px é a altura comum do AppBar no desktop */}
         <SwiperDestaque destaques={destaques} />
       </Box>
       <Box sx={{backgroundImage:"url(src/assets/bgcolor.png)",backgroundRepeat:"no-repeat",backgroundSize:"cover",height:"900px"}}>

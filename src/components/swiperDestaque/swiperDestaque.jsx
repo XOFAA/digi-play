@@ -5,7 +5,7 @@ import "./swiperDestaque.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, Button, Container, IconButton, Typography } from "@mui/material";
 
 export const SwiperDestaque = ({ destaques }) => {
 
@@ -23,9 +23,9 @@ export const SwiperDestaque = ({ destaques }) => {
     >
       {destaques.map((destaque, idx) => (
         <SwiperSlide key={idx}>
-          <div style={{ width: "100%", aspectRatio: "16 / 9" }}>
-            <Box sx={{ position: "absolute", top: { md: "25%", lg:"36%",xl: "36%" }, left: "5%" }}>
-              <Box sx={{ width: {xs:"85%",md:"68%",lg:"70%",xl:"70%"} }}>
+          <Box sx={{ width: "100%", aspectRatio: "16 / 9",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <Box sx={{ position: "absolute", border:2,mx:"auto",maxWidth:"xl"}}>
+              <Box sx={{}}>
                 {destaque.instrutores.map((instrutor, index) => (
                   <Box sx={{
                     bgcolor: "#15ECEC2B", px:2,py:1, width: "30%", textAlign: "center", borderRadius: "14px", mb: 2
@@ -33,6 +33,7 @@ export const SwiperDestaque = ({ destaques }) => {
                     <Typography key={index} sx={{ fontSize: {md:15,xl:24}, color: "#fff", fontWeight: "bolder" }}>{instrutor.instrutor.nome}</Typography>
                   </Box>
                 ))}
+                <Box sx={{border:3,borderColor:"#fff",width:"70%"}}>
                 <Typography
                   variant="titleAlt"
                   component="div"
@@ -49,6 +50,7 @@ export const SwiperDestaque = ({ destaques }) => {
                 >
                   {destaque.titulo}
                 </Typography>
+                    </Box>
               </Box>
               <Box sx={{ display: "flex", gap: 1 }}>
                 <Box sx={{
@@ -75,7 +77,7 @@ export const SwiperDestaque = ({ destaques }) => {
               alt=""
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
-          </div>
+          </Box>
         </SwiperSlide>
       ))}
     </Swiper>

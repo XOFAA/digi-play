@@ -43,7 +43,7 @@ export const NavBar = () => {
 
   return (
     <AppBar
-      position="sticky"
+      position="fixed"
       sx={{
         bgcolor: "transparent",
         backdropFilter: 'blur(10px)',

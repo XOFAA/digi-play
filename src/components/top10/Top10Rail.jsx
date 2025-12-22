@@ -51,21 +51,21 @@ export function Top10Rail({ categoriaId, tipo }) {
         </Typography>
       </Box>
 
-      <Swiper
-        modules={[Navigation]}
-
-        spaceBetween={80}
-        slidesPerView={1.5}
-        breakpoints={{
-          480: { slidesPerView: 1.8 },
-          768: { slidesPerView: 2.5 },
-          800: { slidesPerView: 2.5 },
-          1024: { slidesPerView: 2.7 },
-          1100: { slidesPerView: 3.5 },
-          1280: { slidesPerView: 3.8 },
-          1440: { slidesPerView: 4.6 },
-        }}
-      >
+  <Swiper
+  modules={[Navigation]}
+  spaceBetween={50} // default (mobile bem pequeno)
+  slidesPerView={1.1}
+   slidesOffsetAfter={50}   // ✅ dá espaço no final no mobile
+  breakpoints={{
+    480:  { slidesPerView: 1.8, spaceBetween: 24 },
+    768:  { slidesPerView: 2.5, spaceBetween: 36 },
+    800:  { slidesPerView: 2.5, spaceBetween: 40 },
+    1024: { slidesPerView: 2.7, spaceBetween: 46 },
+    1100: { slidesPerView: 3.5, spaceBetween: 54 },
+    1280: { slidesPerView: 3.8, spaceBetween: 62 },
+    1440: { slidesPerView: 4.6, spaceBetween: 72 },
+  }}
+>
         {items.map((item, idx) => (
           <SwiperSlide key={item.id ?? idx}>
             <Top10Card
@@ -91,27 +91,26 @@ function Top10Card({ item, rank, isLast }) {
   const imgSrc = thumb ? `https://api.digitaleduca.com.vc/public/${thumb}` : "";
 
   return (
-    <Box sx={{ position: "relative", height: { xs: 350, md: 350 }, width: 350 }}>
+    <Box sx={{ position: "relative", height: { xs: 350, md: 350 }, width: {md:350,xs:320},border:2}}>
       {/* número gigante */}
-      <Box
-        sx={{
-          position: "absolute",
-          left: { xs: 50, md: rank === 1 ? 30 : rank === 10 ? 5 : 16 },
-          bottom: { xs: -5, md: -18 },
-          fontSize: { xs: 75, md: 150 },
-          fontWeight: 900,
-          lineHeight: 1,
-          userSelect: "none",
-          pointerEvents: "none",
-          zIndex: 0,
+<Box
+  sx={{
+    position: "absolute",
+    left: { xs:rank === 1 ? -5 : rank === 10 ? -22 : -10, md: rank === 1 ? 30 : rank === 10 ? 5 : 16 },
+    bottom: { xs: -5, md: -18 },
+    fontSize: { xs: 90, md: 150 },
+    fontWeight: 900,
+    lineHeight: 1,
+    userSelect: "none",
+    pointerEvents: "none",
 
-          color: "rgba(255,255,255,0.92)",
+    color: "rgba(255,255,255,0.92)",
+    textShadow: { xs: "0 6px 18px rgba(0,0,0,0.7)", md: "none" }, // (opcional)
+  }}
+>
+  {rank}
+</Box>
 
-
-        }}
-      >
-        {rank}
-      </Box>
 
 
       {/* poster */}
@@ -120,7 +119,7 @@ function Top10Card({ item, rank, isLast }) {
           position: "absolute",
           right: 0,
           bottom: 0,
-          width: { md: 280 },
+          width: { xs:280,md: 280 },
           height: { xs: 320, md: 320 },
           borderRadius: "14px",
           overflow: "hidden",
@@ -134,7 +133,7 @@ function Top10Card({ item, rank, isLast }) {
           zIndex: 1,
 
           "&:hover": {
-            transform: "scale(1.08)",
+            transform: {xs:"unset",md:"scale(1.08)"},
             zIndex: 999, // sobe acima dos vizinhos
             boxShadow: "0 18px 50px rgba(0,0,0,0.75)",
             filter: "brightness(1.06)",
@@ -147,7 +146,7 @@ function Top10Card({ item, rank, isLast }) {
             src={imgSrc}
             alt={item.titulo}
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-            loading="lazy"
+       
           />
         ) : (
           <Box sx={{ width: "100%", height: "100%", bgcolor: "rgba(255,255,255,0.06)" }} />

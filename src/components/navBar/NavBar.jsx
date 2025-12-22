@@ -100,7 +100,7 @@ export const NavBar = () => {
 
          <Box
     sx={{
-      minWidth: "82px",
+      minWidth: "25px",
       height: "50px",
       display: { xs: "flex", md: "none" },
       position: "absolute",

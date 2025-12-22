@@ -76,7 +76,7 @@ export const SwiperDestaque = ({ destaques }) => {
 
       {destaques.map((destaque, idx) => (
         <SwiperSlide key={idx}>
-          <Box sx={{ width: "100%", aspectRatio: "16 / 9",display:"flex",justifyContent:"center",alignItems:"center"}}>
+          <Box sx={{ width: "100%", aspectRatio: "16 / 9",display:"flex",justifyContent:"center",alignItems:"center",}}>
             <Container maxWidth="xl" sx={{ position: "absolute"}}>
               <Box sx={{}}>
                 {destaque.instrutores.map((instrutor, index) => (

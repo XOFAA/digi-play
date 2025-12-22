@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import themeLight from "./theme/themeLight.jsx";
+import { NavbarColorProvider } from "./context/NavbarColorContext.jsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -13,7 +14,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ThemeProvider theme={themeLight}>
       <CssBaseline />
       <BrowserRouter>
-        <App />
+      <NavbarColorProvider>
+  <App />
+      </NavbarColorProvider>
+      
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>

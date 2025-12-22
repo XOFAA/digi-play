@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useNavbarColor } from '../../context/NavbarColorContext';
 
 const pages = [
   { label: "Início", icon: "src/assets/icon-home.svg", href: "/" },
@@ -25,7 +26,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 export const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+ const { navbarColor } = useNavbarColor();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -42,19 +43,23 @@ export const NavBar = () => {
   };
 
   return (
-    <AppBar
-      position="fixed"
-      sx={{
-        bgcolor: "transparent",
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)', // Safari
-        boxShadow: 0,
-        
-      }}
-    >
+<AppBar
+  sx={{
+    bgcolor: navbarColor ,
+    backgroundImage: "none",
+    backdropFilter: "blur(8px)",
+    WebkitBackdropFilter: "blur(8px)",
+    boxShadow: "none",
+
+    position: { xs: "sticky", md: "fixed" },
+    zIndex: (theme) => theme.zIndex.drawer + 2,
+  }}
+>
+
+
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ width: "82px", height: "50px" }}>
+          <Box sx={{ minWidth: "82px", height: "50px",display:{xs:"none",md:"flex"}}}>
             <img src='src/assets/logo-brilhante.png' style={{ width: "100%", height: "100%" }} />
           </Box>
 
@@ -92,26 +97,24 @@ export const NavBar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: "center", gap: 5 }}>
+
+         <Box
+    sx={{
+      minWidth: "82px",
+      height: "50px",
+      display: { xs: "flex", md: "none" },
+      position: "absolute",
+      left: "50%",
+      transform: "translateX(-50%)",
+    }}
+  >
+    <img
+      src="src/assets/logo-brilhante.png"
+      style={{ width: "100%", height: "100%" }}
+    />
+  </Box>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: "center", gap: {md:1,lg:5} }}>
             {pages.map((page) => (
 
               <Button
@@ -121,7 +124,7 @@ export const NavBar = () => {
                   my: 2,
                   color: "white",
                   fontWeight: "600px",
-                  fontSize: "22px",
+                  fontSize: {lg:"22px",md:"16px"},
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 1,

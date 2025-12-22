@@ -6,41 +6,94 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Box, Button, Container, IconButton, Typography } from "@mui/material";
+import { useNavbarColor } from "../../context/NavbarColorContext";
+import { FastAverageColor } from "fast-average-color";
 
 export const SwiperDestaque = ({ destaques }) => {
 
+   const { setNavbarColor } = useNavbarColor();
+  const facRef = React.useRef(new FastAverageColor());
+
+  const setColorFromImage = React.useCallback(
+    async (imgEl) => {
+      if (!imgEl) return;
+
+
+      try {
+        const color = await facRef.current.getColorAsync(imgEl, {
+          algorithm: "simple",
+        });
+
+        const rgba = `rgba(${color.value[0]}, ${color.value[1]}, ${color.value[2]}, 0.75)`;
+
+
+        setNavbarColor(rgba);
+      } catch (e) {
+    
+        setNavbarColor("rgba(0,0,0,0.0)");
+      }
+    },
+    [setNavbarColor]
+  );
+
+  const handleSlideColor = React.useCallback(
+    (swiper) => {
+
+
+      const activeSlide = swiper.slides[swiper.activeIndex];
+      const imgEl = activeSlide?.querySelector("img[data-average-color]");
+
+
+
+      if (!imgEl) return;
+
+      if (imgEl.complete) {
+        setColorFromImage(imgEl);
+      } else {
+        imgEl.addEventListener("load", () => setColorFromImage(imgEl), { once: true });
+      }
+    },
+    [setColorFromImage]
+  );
+
+  React.useEffect(() => {
+    return () => facRef.current?.destroy?.();
+  }, []);
+
 
   return (
-    <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
+<Swiper
+  modules={[Navigation, Pagination, Autoplay]}
+  pagination={{ clickable: true }}
+  autoplay={{ delay: 4500, disableOnInteraction: false }}
+  loop
+  spaceBetween={16}
+  slidesPerView={1}
+  style={{ width: "100%", overflow: "hidden" }}
+  onSwiper={(swiper) => handleSlideColor(swiper)}       // pega cor no primeiro render
+  onSlideChange={(swiper) => handleSlideColor(swiper)}  // pega cor quando troca slide
+>
 
-      pagination={{ clickable: true }}
-      autoplay={{ delay: 3500, disableOnInteraction: false }}
-      loop
-      spaceBetween={16}
-      slidesPerView={1}
-      style={{ width: "100%", overflow: "hidden" }}
-    >
       {destaques.map((destaque, idx) => (
         <SwiperSlide key={idx}>
           <Box sx={{ width: "100%", aspectRatio: "16 / 9",display:"flex",justifyContent:"center",alignItems:"center"}}>
-            <Box sx={{ position: "absolute", border:2,mx:"auto",maxWidth:"xl"}}>
+            <Container maxWidth="xl" sx={{ position: "absolute"}}>
               <Box sx={{}}>
                 {destaque.instrutores.map((instrutor, index) => (
                   <Box sx={{
-                    bgcolor: "#15ECEC2B", px:2,py:1, width: "30%", textAlign: "center", borderRadius: "14px", mb: 2
+                    bgcolor: "#15ECEC2B", px:4,py:1, width: "fit-content", textAlign: "center", borderRadius: "14px", mb: 2
                   }}>
-                    <Typography key={index} sx={{ fontSize: {md:15,xl:24}, color: "#fff", fontWeight: "bolder" }}>{instrutor.instrutor.nome}</Typography>
+                    <Typography key={index} sx={{ fontSize: {xs:12,md:15,xl:24}, color: "#fff", fontWeight: "bolder" }}>{instrutor.instrutor.nome}</Typography>
                   </Box>
                 ))}
-                <Box sx={{border:3,borderColor:"#fff",width:"70%"}}>
+                <Box sx={{borderColor:"#fff",width:"70%"}}>
                 <Typography
                   variant="titleAlt"
                   component="div"
                   sx={{
-                    fontSize: { xl: 110, md: 70,lg:80},
+                    fontSize: { xs:20,xl: 110, md: 50,lg:80},
                     color: "#fff",
-                    lineHeight: { md: "70px", xl: "100px",lg:"80px"},
+                    lineHeight: { xs:"20px",md: "50px", xl: "100px",lg:"80px"},
                     fontWeight: "bolder",
                     display: "-webkit-box",
                     WebkitBoxOrient: "vertical",
@@ -54,26 +107,28 @@ export const SwiperDestaque = ({ destaques }) => {
               </Box>
               <Box sx={{ display: "flex", gap: 1 }}>
                 <Box sx={{
-                  bgcolor: destaque.tipo ==="AULA"? "#02495DA6" : destaque.tipo==="PALESTRA"? "#F3A0052B": destaque.tipo==="PODCAST" ? "#025D13A6":"#000", px: 1, textAlign: "center", borderRadius: "20px", width: "8%", mt: 2
+                  bgcolor: destaque.tipo ==="AULA"? "#02495DA6" : destaque.tipo==="PALESTRA"? "#F3A0052B": destaque.tipo==="PODCAST" ? "#025D13A6":"#000", px: 1, textAlign: "center", borderRadius: "20px", mt: 2
                 }}>
-                  <Typography sx={{ fontSize: {xl:16,md:12}, color: "#fff", p: 1, fontWeight: "bolder" }}>{destaque.tipo}</Typography>
+                  <Typography sx={{ fontSize: {xl:16,md:12,xs:12}, color: "#fff", p: 1, fontWeight: "bolder",width: "fit-content"}}>{destaque.tipo}</Typography>
                 </Box>
                 <Box sx={{
-                  bgcolor: "#15ECEC2B", px: 1, textAlign: "center", borderRadius: "20px", width: "8%a", mt: 2
+                  bgcolor: "#15ECEC2B", px: 1, textAlign: "center", borderRadius: "20px", width: "fit-content", mt: 2
                 }}>
-                  <Typography sx={{ fontSize: {xl:16,md:12}, color: "#fff", p: 1, fontWeight: "bolder" }}>{destaque.subcategoria.nome}</Typography>
+                  <Typography sx={{ fontSize: {xl:16,md:12,xs:12}, color: "#fff", p: 1, fontWeight: "bolder" }}>{destaque.subcategoria.nome}</Typography>
                 </Box>
               </Box>
               <Box sx={{display:"flex",alignItems:"center",gap:2,mt:3}}>
-       <Button sx={{ bgcolor: "#FFA40A", width:"20%",height:"auto",color: "#000", fontSize: 22, fontWeight: "bolder", gap: 1, borderRadius: "10px" }}><img src="/src/assets/play.svg" />Assistir</Button>
-              <IconButton sx={{bgcolor:"#333",borderRadius:"10px",width:"65px",height:"65px"}}>
+       <Button sx={{ bgcolor: "#FFA40A", height:"auto",color: "#000", fontSize: {lg:22,xs:14}, fontWeight: "bolder", gap: 1, borderRadius: "10px" }}><img src="/src/assets/play.svg" />Assistir</Button>
+              <IconButton sx={{bgcolor:"#333",borderRadius:"10px"}}>
                 <img src="src/assets/save.svg"/>
               </IconButton>
               </Box>
        
-            </Box>
+            </Container>
             <img
-              src={"http://localhost:3000/public/" + destaque.thumbnailDestaque}
+               data-average-color
+               crossOrigin="anonymous"
+              src={"https://api.digitaleduca.com.vc/public/" + destaque.thumbnailDestaque}
               alt=""
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />

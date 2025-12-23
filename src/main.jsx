@@ -14,10 +14,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ThemeProvider theme={themeLight}>
       <CssBaseline />
       <BrowserRouter>
-      <NavbarColorProvider>
-  <App />
-      </NavbarColorProvider>
-      
+        <NavbarColorProvider>
+          <App />
+        </NavbarColorProvider>
+
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>

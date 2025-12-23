@@ -57,7 +57,7 @@ export const NavBar = () => {
 >
 
 
-      <Container maxWidth="xl">
+          <Box sx={{ px: { xs: 2, md: 6 } }}>
         <Toolbar disableGutters>
           <Box sx={{ minWidth: "82px", height: "50px",display:{xs:"none",md:"flex"}}}>
             <img src='src/assets/logo-brilhante.png' style={{ width: "100%", height: "100%" }} />
@@ -171,7 +171,7 @@ export const NavBar = () => {
             </Menu>
           </Box>
         </Toolbar>
-      </Container>
+      </Box>
     </AppBar>
   );
 }

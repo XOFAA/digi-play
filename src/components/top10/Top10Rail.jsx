@@ -3,9 +3,9 @@ import api from "../../service/api";
 import { Box, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/navigation";
+import { Top10Card } from "./Top10Card";
 
 export function Top10Rail({ categoriaId, tipo }) {
   const [items, setItems] = React.useState([]);
@@ -25,7 +25,6 @@ export function Top10Rail({ categoriaId, tipo }) {
 
         const res = await api.get(url);
         if (!mounted) return;
-        console.log(res)
         setItems(res.data?.data || []);
       } catch (e) {
         console.error("[Top10Rail] erro:", e);
@@ -39,8 +38,11 @@ export function Top10Rail({ categoriaId, tipo }) {
     };
   }, [categoriaId, tipo]);
 
-  return (
+  if (!items?.length) return null;
 
+  const enableLoop = items.length >= 10;
+
+  return (
     <Box sx={{ mt: 4 }}>
       <Box sx={{ display: "flex", alignItems: "baseline", gap: 1 }}>
         <Typography sx={{ color: "#fff", fontWeight: 900, fontSize: { xs: 28, md: 44 } }}>
@@ -51,111 +53,67 @@ export function Top10Rail({ categoriaId, tipo }) {
         </Typography>
       </Box>
 
-  <Swiper
-  modules={[Navigation]}
-  spaceBetween={50} // default (mobile bem pequeno)
-  slidesPerView={1.1}
-   slidesOffsetAfter={50}   // ✅ dá espaço no final no mobile
-  breakpoints={{
-    480:  { slidesPerView: 1.8, spaceBetween: 24 },
-    768:  { slidesPerView: 2.5, spaceBetween: 36 },
-    800:  { slidesPerView: 2.5, spaceBetween: 40 },
-    1024: { slidesPerView: 2.7, spaceBetween: 46 },
-    1100: { slidesPerView: 3.5, spaceBetween: 54 },
-    1280: { slidesPerView: 3.8, spaceBetween: 62 },
-    1440: { slidesPerView: 4.6, spaceBetween: 72 },
-  }}
->
-        {items.map((item, idx) => (
-          <SwiperSlide key={item.id ?? idx}>
-            <Top10Card
-              item={item}
-              rank={idx + 1}
-              isLast={idx === items.length - 1} // ✅ aqui
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </Box>
-  );
-}
-
-function Top10Card({ item, rank, isLast }) {
-  const thumb =
-    item.thumbnailMobile ||
-    item.thumbnailDestaque ||
-    item.thumbnailDesktop ||
-    item.thumbnailDestaque;
-
-  // ajuste se teu backend servir diferente
-  const imgSrc = thumb ? `https://api.digitaleduca.com.vc/public/${thumb}` : "";
-
-  return (
-    <Box sx={{ position: "relative", height: { xs: 350, md: 350 }, width: {md:350,xs:320},border:2}}>
-      {/* número gigante */}
-<Box
-  sx={{
-    position: "absolute",
-    left: { xs:rank === 1 ? -5 : rank === 10 ? -22 : -10, md: rank === 1 ? 30 : rank === 10 ? 5 : 16 },
-    bottom: { xs: -5, md: -18 },
-    fontSize: { xs: 90, md: 150 },
-    fontWeight: 900,
-    lineHeight: 1,
-    userSelect: "none",
-    pointerEvents: "none",
-
-    color: "rgba(255,255,255,0.92)",
-    textShadow: { xs: "0 6px 18px rgba(0,0,0,0.7)", md: "none" }, // (opcional)
-  }}
->
-  {rank}
-</Box>
-
-
-
-      {/* poster */}
       <Box
         sx={{
-          position: "absolute",
-          right: 0,
-          bottom: 0,
-          width: { xs:280,md: 280 },
-          height: { xs: 320, md: 320 },
-          borderRadius: "14px",
-          overflow: "hidden",
+          position: "relative",
+          "& .swiper": { overflow: "visible" },
 
-          // netflix vibe
-          transformOrigin: "center bottom",
-          transition: "transform 200ms ease, box-shadow 200ms ease, filter 200ms ease",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.55)",
+          // fade esquerdo (um pouco maior por causa do rank)
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: { xs: 28, md: 70 },
+            pointerEvents: "none",
+            zIndex: 2,
+        
+          },
 
-          // pra aparecer por cima dos outros quando zoom
-          zIndex: 1,
-
-          "&:hover": {
-            transform: {xs:"unset",md:"scale(1.08)"},
-            zIndex: 999, // sobe acima dos vizinhos
-            boxShadow: "0 18px 50px rgba(0,0,0,0.75)",
-            filter: "brightness(1.06)",
+          // fade direito
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: { xs: 18, md: 40 },
+            pointerEvents: "none",
+            zIndex: 2,
+ 
           },
         }}
       >
-
-        {imgSrc ? (
-          <img
-            src={imgSrc}
-            alt={item.titulo}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-       
-          />
-        ) : (
-          <Box sx={{ width: "100%", height: "100%", bgcolor: "rgba(255,255,255,0.06)" }} />
-        )}
-
-
-
-        {/* título */}
-
+        <Swiper
+          modules={[Navigation]}
+          loop={enableLoop}
+          loopAdditionalSlides={20}
+          speed={500}
+          resistanceRatio={0}
+          grabCursor
+          watchSlidesProgress
+          slidesOffsetBefore={0}
+          slidesOffsetAfter={0}
+          spaceBetween={50}
+          slidesPerView={1.1}
+          breakpoints={{
+            480: { slidesPerView: 1.2, spaceBetween: 24 },
+            768: { slidesPerView: 2.5, spaceBetween: 36 },
+            800: { slidesPerView: 2.5, spaceBetween: 40 },
+            1024: { slidesPerView: 2.7, spaceBetween: 46 },
+            1100: { slidesPerView: 3.5, spaceBetween: 54 },
+            1280: { slidesPerView: 3.8, spaceBetween: 62 },
+            1440: { slidesPerView: 5.5, spaceBetween: 72 },
+            2200: { slidesPerView: 6.5, spaceBetween: 72 },
+          }}
+        >
+          {items.map((item, idx) => (
+            <SwiperSlide key={item.id ?? idx}>
+              <Top10Card item={item} rank={idx + 1} isLast={idx === items.length - 1} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </Box>
     </Box>
   );

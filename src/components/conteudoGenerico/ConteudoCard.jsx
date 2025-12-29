@@ -1,10 +1,10 @@
 import React from "react";
-import { Box, Skeleton } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 
 export function ConteudoCard({ item, onClick }) {
   const thumb = item?.thumbnailMobile;
   const imgSrc = thumb ? `https://api.digitaleduca.com.vc/public/${thumb}` : "";
-
+  console.log(item)
   const [loaded, setLoaded] = React.useState(false);
 
   // ✅ importante pra quando trocar o item no mesmo card (swiper recicla)
@@ -20,6 +20,7 @@ export function ConteudoCard({ item, onClick }) {
         width: { xs: 280, md: 280 },
       }}
     >
+      
       <Box
         sx={{
           width: "100%",
@@ -51,7 +52,8 @@ export function ConteudoCard({ item, onClick }) {
         )}
 
         {imgSrc ? (
-          <img
+          <>
+               <img
             src={imgSrc}
             alt={item?.titulo || ""}
             loading="lazy"
@@ -67,6 +69,11 @@ export function ConteudoCard({ item, onClick }) {
               transition: "opacity 200ms ease",
             }}
           />
+          
+             
+             </>
+     
+       
         ) : (
           // se não tem imagem, não deixa skeleton infinito
           <Box sx={{ width: "100%", height: "100%" }} />

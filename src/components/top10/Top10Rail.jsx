@@ -85,35 +85,33 @@ export function Top10Rail({ categoriaId, tipo }) {
           },
         }}
       >
-        <Swiper
-          modules={[Navigation]}
-          loop={enableLoop}
-          loopAdditionalSlides={20}
-          speed={500}
-          resistanceRatio={0}
-          grabCursor
-          watchSlidesProgress
-          slidesOffsetBefore={0}
-          slidesOffsetAfter={0}
-          spaceBetween={50}
-          slidesPerView={1.1}
-          breakpoints={{
-            480: { slidesPerView: 1.2, spaceBetween: 24 },
-            768: { slidesPerView: 2.5, spaceBetween: 36 },
-            800: { slidesPerView: 2.5, spaceBetween: 40 },
-            1024: { slidesPerView: 2.7, spaceBetween: 46 },
-            1100: { slidesPerView: 3.5, spaceBetween: 54 },
-            1280: { slidesPerView: 3.8, spaceBetween: 62 },
-            1440: { slidesPerView: 5.5, spaceBetween: 72 },
-            2200: { slidesPerView: 6.5, spaceBetween: 72 },
-          }}
-        >
-          {items.map((item, idx) => (
-            <SwiperSlide key={item.id ?? idx}>
-              <Top10Card item={item} rank={idx + 1} isLast={idx === items.length - 1} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+   <Swiper
+  modules={[Navigation]}
+  loop={enableLoop}
+  speed={650}
+  resistanceRatio={0.85}
+  threshold={8}
+  longSwipesRatio={0.25}
+  longSwipesMs={250}
+  followFinger
+  grabCursor
+  watchSlidesProgress
+  slidesPerView={"auto"}
+  spaceBetween={50}
+  loopAdditionalSlides={enableLoop ? 6 : 0}
+>
+  {items.map((item, idx) => (
+    <SwiperSlide
+      key={item.id ?? idx}
+      style={{
+        width: "clamp(320px, 18vw, 520px)", // ajuste fino pro Top10
+      }}
+    >
+      <Top10Card item={item} rank={idx + 1} isLast={idx === items.length - 1} />
+    </SwiperSlide>
+  ))}
+</Swiper>
+
       </Box>
     </Box>
   );

@@ -7,6 +7,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import themeLight from "./theme/themeLight.jsx";
 import { NavbarColorProvider } from "./context/NavbarColorContext.jsx";
+import { AuthProvider } from "./context/AuthProvider.jsx";
+
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -14,10 +16,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ThemeProvider theme={themeLight}>
       <CssBaseline />
       <BrowserRouter>
-        <NavbarColorProvider>
-          <App />
-        </NavbarColorProvider>
-
+        <AuthProvider>
+          <NavbarColorProvider>
+            <App />
+          </NavbarColorProvider>
+        </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>

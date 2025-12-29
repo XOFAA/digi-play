@@ -7,9 +7,9 @@ import "swiper/css/navigation";
 import { ConteudoCard } from "./ConteudoCard";
 
 const TIPO_ICON = {
-  AULA: "src/assets/icon-aulas.svg",
-  PODCAST: "src/assets/icon-podcast.svg",
-  PALESTRA: "src/assets/icon-mic.svg",
+  AULA: "/assets/icon-aulas.svg",
+  PODCAST: "/assets/icon-podcast.svg",
+  PALESTRA: "/assets/icon-mic.svg",
 };
 
 export const ConteudoRail = ({ title, tipo, items = [], onItemClick }) => {
@@ -78,13 +78,17 @@ export const ConteudoRail = ({ title, tipo, items = [], onItemClick }) => {
   grabCursor
   watchSlidesProgress
   slidesPerView={"auto"}     // ✅ automático
-  spaceBetween={30}          // ✅ consistente
+  spaceBetween={0}
+  breakpoints={{
+    900:{spaceBetween:70},
+    1280: { spaceBetween: 70 }, // >= 1280px
+  }}
 >
   {items.map((item, idx) => (
     <SwiperSlide
       key={item.id ?? idx}
       style={{
-        width: "clamp(270px, 12vw, 270px)", // ✅ cresce com a tela
+        width: "clamp(230px, 12vw, 270px)", // ✅ cresce com a tela
       }}
     >
       <ConteudoCard item={item} onClick={onItemClick} />

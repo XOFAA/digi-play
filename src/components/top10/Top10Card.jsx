@@ -44,7 +44,7 @@ export const Top10Card = ({ item, rank, isLast }) => {
          
           bottom: 0,
           width: { xs: 280, md: 280 },
-          height: { xs: 320, md: 320 },
+          height: { xs:"auto"},
           borderRadius: "14px",
           overflow: "hidden",
 

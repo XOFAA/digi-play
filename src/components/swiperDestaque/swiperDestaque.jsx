@@ -168,7 +168,7 @@ export const SwiperDestaque = ({ destaques = [] }) => {
                 </Button>
 
                 <IconButton sx={{ bgcolor: "#333", borderRadius: "10px" }}>
-                  <img src="src/assets/save.svg" alt="" />
+                  <img src="/assets/save.svg" alt="" />
                 </IconButton>
               </Box>
             </Box>

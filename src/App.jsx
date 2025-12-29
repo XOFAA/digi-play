@@ -6,7 +6,7 @@ import { ProtectedRoute } from "./components/protectedRoute/ProtectedRoute";
 export default function App() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
 
       <Route element={<ProtectedRoute />}>
         <Route path="/home" element={<Home />} />

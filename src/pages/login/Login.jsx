@@ -9,7 +9,7 @@ export const Login = () => {
     <Box sx={{
             position: "relative",
         minHeight: "100vh",
-        backgroundImage: "url(/src/assets/bgcolor.png)",
+        backgroundImage: "url(/assets/bgcolor.png)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -21,7 +21,7 @@ export const Login = () => {
       sx={{
         position: "relative",
         minHeight: "100vh",
-        backgroundImage: "url(/src/assets/bg-login.png)",
+        backgroundImage: "url(/assets/bg-login.png)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -55,7 +55,7 @@ export const Login = () => {
       {/* conteúdo acima das camadas */}
           <Box sx={{position:"absolute",px: { xs: 2, md: 6 },zIndex:2}}>
      <Box sx={{width:"138px",height:"88px"}}>
-            <Box component={"img"} src="/src/assets/logo-brilhante.png" style={{width:"100%",height:"100%"}}/>
+            <Box component={"img"} src="/assets/logo-brilhante.png" style={{width:"100%",height:"100%"}}/>
         </Box>
         </Box>
       <Box sx={{ position: "relative", zIndex: 1}}>

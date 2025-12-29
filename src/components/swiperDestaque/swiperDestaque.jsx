@@ -163,7 +163,7 @@ export const SwiperDestaque = ({ destaques = [] }) => {
                     borderRadius: "10px",
                   }}
                 >
-                  <img src="/src/assets/play.svg" alt="" />
+                  <img src="/assets/play.svg" alt="" />
                   Assistir
                 </Button>
 

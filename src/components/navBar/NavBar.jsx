@@ -15,11 +15,11 @@ import { AuthContext } from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 const pages = [
-  { label: "Início", icon: "/src/assets/icon-home.svg", href: "/" },
-  { label: "Palestras", icon: "/src/assets/icon-mic.svg", href: "/palestras" },
-  { label: "Aulas", icon: "/src/assets/icon-aulas.svg", href: "/aulas" },
-  { label: "Podcasts", icon: "/src/assets/icon-podcast.svg", href: "/podcasts" },
-  { label: "Salvos", icon: "/src/assets/icon-salvar.svg", href: "/salvos" },
+  { label: "Início", icon: "/assets/icon-home.svg", href: "/" },
+  { label: "Palestras", icon: "/assets/icon-mic.svg", href: "/palestras" },
+  { label: "Aulas", icon: "/assets/icon-aulas.svg", href: "/aulas" },
+  { label: "Podcasts", icon: "/assets/icon-podcast.svg", href: "/podcasts" },
+  { label: "Salvos", icon: "/assets/icon-salvar.svg", href: "/salvos" },
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -76,7 +76,7 @@ export const NavBar = () => {
       <Box sx={{ px: { xs: 2, md: 6 } }}>
         <Toolbar disableGutters>
           <Box sx={{ minWidth: "82px", height: "50px", display: { xs: "none", md: "flex" } }}>
-            <img src='/src/assets/logo-brilhante.png' style={{ width: "100%", height: "100%" }} />
+            <img src='/assets/logo-brilhante.png' style={{ width: "100%", height: "100%" }} />
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -125,7 +125,7 @@ export const NavBar = () => {
             }}
           >
             <img
-              src="/src/assets/logo-brilhante.png"
+              src="/assets/logo-brilhante.png"
               style={{ width: "100%", height: "100%" }}
             />
           </Box>

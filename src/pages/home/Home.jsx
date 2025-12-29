@@ -64,7 +64,7 @@ export const Home = () => {
       <Box
         sx={{
           position: "relative",
-          backgroundImage: "url(/src/assets/bgcolor.png)",
+          backgroundImage: "url(/assets/bgcolor.png)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           minHeight: "900px",

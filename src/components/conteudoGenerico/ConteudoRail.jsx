@@ -88,7 +88,7 @@ export const ConteudoRail = ({ title, tipo, items = [], onItemClick }) => {
     <SwiperSlide
       key={item.id ?? idx}
       style={{
-        width: "clamp(230px, 12vw, 270px)", // ✅ cresce com a tela
+        width: "clamp(160px, 12vw, 270px)", // ✅ cresce com a tela
       }}
     >
       <ConteudoCard item={item} onClick={onItemClick} />

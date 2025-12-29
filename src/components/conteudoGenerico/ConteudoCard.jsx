@@ -23,7 +23,7 @@ export function ConteudoCard({ item, onClick }) {
       
       <Box
         sx={{
-          width: {xs:"78%",md:"100%"},
+          width: {xs:"55%",md:"100%"},
           height: { xs: "auto"},
           borderRadius: 2,
           overflow: "hidden",

@@ -12,13 +12,17 @@ export const Top10Card = ({ item, rank, isLast }) => {
 
   const imgSrc = thumb ? `https://api.digitaleduca.com.vc/public/${thumb}` : "";
 
+  React.useEffect(() => {
+    setLoaded(false);
+  }, [imgSrc]);
+
   return (
-    <Box sx={{ position: "relative", height: { xs: 350, md: 350 }, width: { md: 350, xs: 320 } }}>
+    <Box sx={{ position: "relative", height: { xs: 350, md: 350 }, width: { md: 350, xs: 320 }, userSelect: "none" }}>
       {/* número gigante */}
       <Box
         sx={{
           position: "absolute",
-          left: { xs: rank === 1 ? -5 : rank === 10 ? -22 : -10, md: rank === 1 ? 30 : rank === 10 ? 5 : 16 },
+          left: { xs: rank === 1 ? -25 : rank === 10 ? -45 : -35, md: rank === 1 ? -35 : rank === 10 ? -80 : -55 },
           bottom: { xs: -5, md: -18 },
           fontSize: { xs: 90, md: 150 },
           fontWeight: 900,
@@ -27,7 +31,7 @@ export const Top10Card = ({ item, rank, isLast }) => {
           pointerEvents: "none",
           color: "rgba(255,255,255,0.92)",
           textShadow: { xs: "0 6px 18px rgba(0,0,0,0.7)", md: "none" },
-        
+    
         }}
       >
         {rank}
@@ -37,27 +41,27 @@ export const Top10Card = ({ item, rank, isLast }) => {
       <Box
         sx={{
           position: "absolute",
-          right: 0,
+         
           bottom: 0,
           width: { xs: 280, md: 280 },
           height: { xs: 320, md: 320 },
           borderRadius: "14px",
           overflow: "hidden",
 
-          transformOrigin: "center bottom",
-          transition: "transform 200ms ease, box-shadow 200ms ease, filter 200ms ease",
-   
-          zIndex: 1,
+          userSelect: "none",
+          WebkitUserDrag: "none",
 
+          transformOrigin: "center bottom",
+          bgcolor: "rgba(255,255,255,0.06)",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+          transition: "transform 200ms ease, box-shadow 200ms ease, filter 200ms ease",
           "&:hover": {
-            transform: { xs: "unset", md: "scale(1.08)" },
-            zIndex: 999,
-    
+            transform: { xs: "unset", md: "scale(1.04)" },
+            boxShadow: "0 16px 45px rgba(0,0,0,0.55)",
             filter: "brightness(1.06)",
           },
         }}
       >
-        {/* ✅ Skeleton enquanto a imagem não terminou */}
         {!loaded && (
           <Skeleton
             variant="rectangular"
@@ -77,6 +81,8 @@ export const Top10Card = ({ item, rank, isLast }) => {
             alt={item.titulo || ""}
             loading="lazy"
             decoding="async"
+            draggable={false}
+            onDragStart={(e) => e.preventDefault()}
             onLoad={() => setLoaded(true)}
             onError={() => setLoaded(true)}
             style={{
@@ -86,6 +92,8 @@ export const Top10Card = ({ item, rank, isLast }) => {
               display: "block",
               opacity: loaded ? 1 : 0,
               transition: "opacity 200ms ease",
+              userSelect: "none",
+              WebkitUserDrag: "none",
             }}
           />
         ) : (

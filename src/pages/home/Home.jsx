@@ -64,7 +64,7 @@ export const Home = () => {
       <Box
         sx={{
           position: "relative",
-          backgroundImage: "url(src/assets/bgcolor.png)",
+          backgroundImage: "url(/src/assets/bgcolor.png)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           minHeight: "900px",
@@ -84,13 +84,13 @@ export const Home = () => {
         />
 
         <Box sx={{ position: "relative" }}>
-        <Box sx={{ px: { xs: 2, md: 6 } }}>
+          <Box sx={{ px: { xs: 2, md: 6 } }}>
             <Top10Rail />
 
             {/* 1 rail por tipo (sem categoria) */}
-   <ConteudoRail title="Aulas" tipo="AULA" items={aulas} />
-<ConteudoRail title="Podcasts" tipo="PODCAST" items={podcasts} />
-<ConteudoRail title="Palestras" tipo="PALESTRA" items={palestras} />
+            <ConteudoRail title="Aulas" tipo="AULA" items={aulas} />
+            <ConteudoRail title="Podcasts" tipo="PODCAST" items={podcasts} />
+            <ConteudoRail title="Palestras" tipo="PALESTRA" items={palestras} />
 
           </Box>
         </Box>

@@ -9,7 +9,7 @@ import { Top10Card } from "./Top10Card";
 
 export function Top10Rail({ categoriaId, tipo }) {
   const [items, setItems] = React.useState([]);
-
+const looped = Math.min(items.length, 10);
   React.useEffect(() => {
     let mounted = true;
 
@@ -85,9 +85,15 @@ export function Top10Rail({ categoriaId, tipo }) {
           },
         }}
       >
-   <Swiper
+<Swiper
   modules={[Navigation]}
   loop={enableLoop}
+
+  // 🔥 evita teletransporte no loop + slidesPerView="auto"
+  loopedSlides={looped}
+  loopAdditionalSlides={0}
+
+  // mesmas configs do rail que ficou perfeito
   speed={650}
   resistanceRatio={0.85}
   threshold={8}
@@ -96,16 +102,19 @@ export function Top10Rail({ categoriaId, tipo }) {
   followFinger
   grabCursor
   watchSlidesProgress
+
   slidesPerView={"auto"}
-  spaceBetween={50}
-  loopAdditionalSlides={enableLoop ? 6 : 0}
+  spaceBetween={0}
+
+  // ✅ garante que drag funcione quando você começa em cima do card (principalmente se tem botão/link)
+  touchStartPreventDefault={false}
+  preventClicks={true}
+  preventClicksPropagation={true}
 >
   {items.map((item, idx) => (
     <SwiperSlide
       key={item.id ?? idx}
-      style={{
-        width: "clamp(320px, 18vw, 520px)", // ajuste fino pro Top10
-      }}
+      style={{ width: "clamp(330px, 15vw, 520px)" }}
     >
       <Top10Card item={item} rank={idx + 1} isLast={idx === items.length - 1} />
     </SwiperSlide>

@@ -6,22 +6,20 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { useNavbarColor } from '../../context/NavbarColorContext';
 import { AuthContext } from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 const pages = [
-  { label: "Início", icon: "src/assets/icon-home.svg", href: "/" },
-  { label: "Palestras", icon: "src/assets/icon-mic.svg", href: "/palestras" },
-  { label: "Aulas", icon: "src/assets/icon-aulas.svg", href: "/aulas" },
-  { label: "Podcasts", icon: "src/assets/icon-podcast.svg", href: "/podcasts" },
-  { label: "Salvos", icon: "src/assets/icon-salvar.svg", href: "/salvos" },
+  { label: "Início", icon: "/src/assets/icon-home.svg", href: "/" },
+  { label: "Palestras", icon: "/src/assets/icon-mic.svg", href: "/palestras" },
+  { label: "Aulas", icon: "/src/assets/icon-aulas.svg", href: "/aulas" },
+  { label: "Podcasts", icon: "/src/assets/icon-podcast.svg", href: "/podcasts" },
+  { label: "Salvos", icon: "/src/assets/icon-salvar.svg", href: "/salvos" },
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -46,19 +44,19 @@ export const NavBar = () => {
     setAnchorElUser(null);
   };
   const handleSettingClick = (setting) => {
-  handleCloseUserMenu();
+    handleCloseUserMenu();
 
-  if (setting === "Logout") {
-    logout();
-    navigate("/login", { replace: true });
-    return;
-  }
+    if (setting === "Logout") {
+      logout();
+      navigate("/login", { replace: true });
+      return;
+    }
 
-  // opcional: navegação pros outros itens
-  // if (setting === "Profile") navigate("/profile");
-  // if (setting === "Account") navigate("/account");
-  // if (setting === "Dashboard") navigate("/dashboard");
-};
+    // opcional: navegação pros outros itens
+    // if (setting === "Profile") navigate("/profile");
+    // if (setting === "Account") navigate("/account");
+    // if (setting === "Dashboard") navigate("/dashboard");
+  };
 
   return (
     <AppBar
@@ -78,7 +76,7 @@ export const NavBar = () => {
       <Box sx={{ px: { xs: 2, md: 6 } }}>
         <Toolbar disableGutters>
           <Box sx={{ minWidth: "82px", height: "50px", display: { xs: "none", md: "flex" } }}>
-            <img src='src/assets/logo-brilhante.png' style={{ width: "100%", height: "100%" }} />
+            <img src='/src/assets/logo-brilhante.png' style={{ width: "100%", height: "100%" }} />
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -127,7 +125,7 @@ export const NavBar = () => {
             }}
           >
             <img
-              src="src/assets/logo-brilhante.png"
+              src="/src/assets/logo-brilhante.png"
               style={{ width: "100%", height: "100%" }}
             />
           </Box>
@@ -181,11 +179,11 @@ export const NavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-        {settings.map((setting) => (
-  <MenuItem key={setting} onClick={() => handleSettingClick(setting)}>
-    <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
-  </MenuItem>
-))}
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={() => handleSettingClick(setting)}>
+                  <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
+                </MenuItem>
+              ))}
 
             </Menu>
           </Box>

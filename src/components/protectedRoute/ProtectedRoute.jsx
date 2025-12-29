@@ -7,7 +7,7 @@ export function ProtectedRoute() {
   const { loading, isAuthed } = React.useContext(AuthContext);
 
   if (loading) return null; // ou um Loader bonitinho
-  if (!isAuthed) return <Navigate to="/login" replace />;
+  if (!isAuthed) return <Navigate to="/" replace />;
 
   return <Outlet />;
 }

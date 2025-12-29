@@ -181,7 +181,7 @@ const handleEntrar = async (e) => {
                 >
                     ENTRAR{" "}
                     <img
-                        src="src/assets/button-entrar.svg"
+                        src="/assets/button-entrar.svg"
                         style={{ marginLeft: 10, width: "32px", height: "32px" }}
                     />
                 </Button>

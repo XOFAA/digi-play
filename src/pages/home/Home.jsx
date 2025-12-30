@@ -5,6 +5,7 @@ import api from "../../service/api";
 import { Box } from "@mui/material";
 import { Top10Rail } from "../../components/top10/Top10Rail";
 import { ConteudoRail } from "../../components/conteudoGenerico/ConteudoRail";
+import { useNavigate } from "react-router-dom";
 
 
 export const Home = () => {
@@ -12,7 +13,11 @@ export const Home = () => {
   const [aulas, setAulas] = useState([]);
   const [podcasts, setPodcasts] = useState([]);
   const [palestras, setPalestras] = useState([]);
+ const navigate = useNavigate();
 
+  const handleOpenConteudo = (item) => {
+    navigate(`/conteudo/${item.id}`); // ou item._id, conforme seu backend
+  };
 
   const getDestaques = () => {
     api
@@ -58,7 +63,7 @@ export const Home = () => {
       <NavBar />
 
       <Box>
-        <SwiperDestaque destaques={destaques} />
+       <SwiperDestaque destaques={destaques} onAssistir={handleOpenConteudo} />
       </Box>
 
       <Box
@@ -85,12 +90,13 @@ export const Home = () => {
 
         <Box sx={{ position: "relative" }}>
           <Box sx={{ px: { xs: 2, md: 6 } }}>
-            <Top10Rail />
+            <Top10Rail onOpen={handleOpenConteudo} />
 
             {/* 1 rail por tipo (sem categoria) */}
-            <ConteudoRail title="Aulas" tipo="AULA" items={aulas} />
-            <ConteudoRail title="Podcasts" tipo="PODCAST" items={podcasts} />
-            <ConteudoRail title="Palestras" tipo="PALESTRA" items={palestras} />
+        <ConteudoRail title="Aulas" tipo="AULA" items={aulas} onOpen={handleOpenConteudo} />
+<ConteudoRail title="Podcasts" tipo="PODCAST" items={podcasts} onOpen={handleOpenConteudo} />
+<ConteudoRail title="Palestras" tipo="PALESTRA" items={palestras} onOpen={handleOpenConteudo} />
+
 
           </Box>
         </Box>

@@ -106,6 +106,8 @@ const looped = Math.min(items.length, 10);
   slidesPerView={"auto"}
   spaceBetween={0}
 
+
+
   // ✅ garante que drag funcione quando você começa em cima do card (principalmente se tem botão/link)
   touchStartPreventDefault={false}
   preventClicks={true}
@@ -114,7 +116,7 @@ const looped = Math.min(items.length, 10);
   {items.map((item, idx) => (
     <SwiperSlide
       key={item.id ?? idx}
-      style={{ width: "clamp(330px, 15vw, 520px)" }}
+      style={{ width: "clamp(300px, 18vw, 520px)" }}
     >
       <Top10Card item={item} rank={idx + 1} isLast={idx === items.length - 1} />
     </SwiperSlide>

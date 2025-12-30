@@ -15,7 +15,7 @@ import { AuthContext } from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 const pages = [
-  { label: "Início", icon: "/assets/icon-home.svg", href: "/" },
+  { label: "Início", icon: "/assets/icon-home.svg", href: "/home" },
   { label: "Palestras", icon: "/assets/icon-mic.svg", href: "/palestras" },
   { label: "Aulas", icon: "/assets/icon-aulas.svg", href: "/aulas" },
   { label: "Podcasts", icon: "/assets/icon-podcast.svg", href: "/podcasts" },
@@ -136,6 +136,7 @@ export const NavBar = () => {
               <Button
                 key={page.label}
                 onClick={handleCloseNavMenu}
+                href={page.href}
                 sx={{
                   my: 2,
                   color: "white",

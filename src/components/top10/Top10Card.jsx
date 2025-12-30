@@ -22,7 +22,8 @@ export const Top10Card = ({ item, rank, isLast }) => {
       <Box
         sx={{
           position: "absolute",
-          left: { xs: rank === 1 ? -25 : rank === 10 ? -45 : -35, md: rank === 1 ? -35 : rank === 10 ? -80 : -55 },
+          left: { xs: rank === 1 ? 0 : rank === 10 ? -20 : -5, md: rank === 1 ? -15 : rank === 10 ? -50 : -25 },
+          right:0,
           bottom: { xs: -5, md: -18 },
           fontSize: { xs: 90, md: 150 },
           fontWeight: 900,
@@ -41,9 +42,9 @@ export const Top10Card = ({ item, rank, isLast }) => {
       <Box
         sx={{
           position: "absolute",
-         
+         right:{xs:45},
           bottom: 0,
-          width: { xs: 280, md: 280 },
+          width: { xs: 250, md: 280 },
           height: { xs:"auto"},
           borderRadius: "14px",
           overflow: "hidden",

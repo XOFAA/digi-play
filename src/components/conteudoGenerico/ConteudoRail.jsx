@@ -12,7 +12,7 @@ const TIPO_ICON = {
   PALESTRA: "/assets/icon-mic.svg",
 };
 
-export const ConteudoRail = ({ title, tipo, items = [], onItemClick }) => {
+export const ConteudoRail = ({ title, tipo, items = [], onOpen }) => {
   if (!items?.length) return null;
 
   const MAX_VIEW = 8; // seu breakpoint vai até 7.5
@@ -23,7 +23,7 @@ export const ConteudoRail = ({ title, tipo, items = [], onItemClick }) => {
   return (
     <Box sx={{ mt: 4 }}>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-             <Typography sx={{ color: "#fff", fontWeight: 900, fontSize: { xs: 18, md: 24 } }}>
+        <Typography sx={{ color: "#fff", fontWeight: 900, fontSize: { xs: 18, md: 24 } }}>
           {title}
         </Typography>
         {iconSrc && (
@@ -35,7 +35,7 @@ export const ConteudoRail = ({ title, tipo, items = [], onItemClick }) => {
           />
         )}
 
-   
+
       </Box>
 
       <Box
@@ -51,7 +51,7 @@ export const ConteudoRail = ({ title, tipo, items = [], onItemClick }) => {
             width: { xs: 18, md: 40 },
             pointerEvents: "none",
             zIndex: 2,
-      
+
           },
           "&::after": {
             content: '""',
@@ -66,35 +66,35 @@ export const ConteudoRail = ({ title, tipo, items = [], onItemClick }) => {
           },
         }}
       >
-<Swiper
-  modules={[Navigation]}
-  loop={enableLoop}
-  speed={650}
-  resistanceRatio={0.85}
-  threshold={8}
-  longSwipesRatio={0.25}
-  longSwipesMs={250}
-  followFinger
-  grabCursor
-  watchSlidesProgress
-  slidesPerView={"auto"}     // ✅ automático
-  spaceBetween={0}
-  breakpoints={{
-    900:{spaceBetween:70},
-    1280: { spaceBetween: 70 }, // >= 1280px
-  }}
->
-  {items.map((item, idx) => (
-    <SwiperSlide
-      key={item.id ?? idx}
-      style={{
-        width: "clamp(160px, 12vw, 270px)", // ✅ cresce com a tela
-      }}
-    >
-      <ConteudoCard item={item} onClick={onItemClick} />
-    </SwiperSlide>
-  ))}
-</Swiper>
+        <Swiper
+          modules={[Navigation]}
+          loop={enableLoop}
+          speed={650}
+          resistanceRatio={0.85}
+          threshold={8}
+          longSwipesRatio={0.25}
+          longSwipesMs={250}
+          followFinger
+          grabCursor
+          watchSlidesProgress
+          slidesPerView={"auto"}     // ✅ automático
+          spaceBetween={0}
+          breakpoints={{
+            900: { spaceBetween: 70 },
+            1280: { spaceBetween: 70 }, // >= 1280px
+          }}
+        >
+          {items.map((item, idx) => (
+            <SwiperSlide
+              key={item.id ?? idx}
+              style={{
+                width: "clamp(160px, 12vw, 270px)", // ✅ cresce com a tela
+              }}
+            >
+              <ConteudoCard item={item} onClick={onOpen} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
       </Box>
     </Box>

@@ -12,15 +12,16 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavbarColor } from '../../context/NavbarColorContext';
 import { AuthContext } from '../../context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const pages = [
-  { label: "Início", icon: "/assets/icon-home.svg", href: "/home" },
-  { label: "Palestras", icon: "/assets/icon-mic.svg", href: "/palestras" },
-  { label: "Aulas", icon: "/assets/icon-aulas.svg", href: "/aulas" },
-  { label: "Podcasts", icon: "/assets/icon-podcast.svg", href: "/podcasts" },
-  { label: "Salvos", icon: "/assets/icon-salvar.svg", href: "/salvos" },
+  { label: "Início", icon: "/assets/icon-home.svg", to: "/home#inicio" },
+  { label: "Palestras", icon: "/assets/icon-mic.svg", to: "/home#palestras" },
+  { label: "Aulas", icon: "/assets/icon-aulas.svg", to: "/home#aulas" },
+  { label: "Podcasts", icon: "/assets/icon-podcast.svg", to: "/home#podcasts" },
+  { label: "Salvos", icon: "/assets/icon-salvar.svg", to: "/salvos" },
 ];
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export const NavBar = () => {
@@ -29,6 +30,29 @@ export const NavBar = () => {
   const { navbarColor } = useNavbarColor();
   const { logout } = React.useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+const goTo = (to) => {
+  handleCloseNavMenu();
+
+  if (to.startsWith("/home#")) {
+    const section = to.split("#")[1];
+
+    // se já está na home, scroll direto
+    if (location.pathname === "/home") {
+      const el = document.getElementById(section);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    // ✅ se não está na home, manda via state (mais confiável que hash)
+    navigate("/home", { state: { scrollTo: section } });
+    return;
+  }
+
+  navigate(to);
+};
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -131,32 +155,24 @@ export const NavBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: "center", gap: { md: 1, lg: 5 } }}>
-            {pages.map((page) => (
-
-              <Button
-                key={page.label}
-                onClick={handleCloseNavMenu}
-                href={page.href}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  fontWeight: "600px",
-                  fontSize: { lg: "22px", md: "16px" },
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 1,
-                }}
-              >
-                <Box
-                  component="img"
-                  src={page.icon}
-                  alt=""
-                  sx={{ width: 24, height: 24, objectFit: "contain", display: "block" }}
-                />
-                {page.label}
-              </Button>
-
-            ))}
+   {pages.map((page) => (
+  <Button
+    key={page.label}
+    onClick={() => goTo(page.to)}
+    sx={{
+      my: 2,
+      color: "white",
+      fontWeight: "600px",
+      fontSize: { lg: "22px", md: "16px" },
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 1,
+    }}
+  >
+    <Box component="img" src={page.icon} alt="" sx={{ width: 24, height: 24 }} />
+    {page.label}
+  </Button>
+))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

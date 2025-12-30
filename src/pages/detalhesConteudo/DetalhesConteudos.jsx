@@ -25,9 +25,10 @@ export const DetalhesConteudos = () => {
 
   return (
     <Box >
+          <NavBar />
       <ConteudoHeader conteudo={conteudo} />
       <Box sx={{ px: { xs: 2, md: 6 } }}>
-        <NavBar />
+    
       </Box>
 
 
